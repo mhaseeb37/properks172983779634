@@ -1,0 +1,67 @@
+<pagination-component
+  class='load-button-pagination {{ class }}'
+  data-target='{{ target }}'
+  data-container-id='{{ container_id }}'
+>
+  {%- if paginate.next -%}
+    {%- liquid
+      assign current_visible_product_count = current_size | times: paginate.current_page
+      assign items_on_percent = paginate.items | divided_by: 100.0
+      assign loaded_items = paginate.page_size | times: paginate.current_page
+      assign progress_percent = loaded_items | divided_by: items_on_percent
+    -%}
+    <div class='load-button-pagination__count'>
+      {{
+        'general.load_button_pagination.store_front.results_label'
+        | t: current_count: current_visible_product_count, count: all_count
+      }}
+    </div>
+    <div class='load-button-pagination__progress' style='--gsc-pagination-progress: {{ progress_percent }}%'></div>
+    <pagination-load-button
+      class='btn btn--outline load-button-pagination__btn'
+      tabindex='0'
+      data-url='{{ paginate.next.url }}'
+    >
+      <span>{{ 'general.load_button_pagination.store_front.button_label' | t }}</span>
+      <div class="loading-spinner btn__loading-spinner"></div>
+    </pagination-load-button>
+  {%- endif -%}
+</pagination-component>
+<style>
+  .load-button-pagination__count{
+    color: rgba(59, 57, 51, 0.75);
+font-family: Inter;
+font-size: 13px;
+font-style: normal;
+font-weight: 500;
+line-height: 18px;
+  }
+  .load-button-pagination{
+    gap:20px;
+  }
+  .load-button-pagination__btn{
+  margin-top: 2px;
+    display: flex;
+    width: 265px;
+    height: 56px;
+    padding: 15.79px 91.52px 16.21px 91.48px;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    border: 1px solid var(--Black, #000);
+    color: var(--Black, #000);
+text-align: center;
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 24px; 
+    padding:0px;
+    transition:all 0.3s ease;
+    
+  }
+   .load-button-pagination__btn:hover{
+     background: var(--Black, #000);
+     color:white;
+   }
+</style>

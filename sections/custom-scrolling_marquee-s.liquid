@@ -1,0 +1,106 @@
+<style>
+.marquee_section_main-wrapper-section-{{ section.id }}{
+  padding-top:{{section.settings.padding_top}}px;
+  padding-bottom:{{section.settings.padding_bottom}}px;
+}
+  .main_section_slider_scroll-{{ section.id }} .swiper-wrapper{
+    transition-timing-function:linear;
+  }
+  @media screen and (max-width:768px){
+   .marquee_section_main-wrapper-section-{{ section.id }}{
+     padding-top:31px;
+     padding-bottom:31px;
+   }
+  }
+</style>
+<div class="marquee_section_main-wrapper-section-{{ section.id }}">
+  <div class="marquee_section_inner_container">
+    <div class="main_section_slider_scroll-{{ section.id }} swiper">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          <div class="section_main_image_slider swiper-slide">
+            <img src={{ block.settings.image_m | image_url }}>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  
+    document.addEventListener("DOMContentLoaded", function() {
+    const siwperm = new Swiper('.main_section_slider_scroll-{{ section.id }}', {
+      loop: true,
+       centeredSlides: false,
+      speed: 5000,
+       
+        slidesPerView: 1.8,
+        slidesPerGroup: 1,
+        centeredSlides: false,
+        spaceBetween: 10,
+        freeMode: true,
+     autoplay: {
+       delay:1,
+     
+
+      },
+      
+     
+        breakpoints: {
+            520: {
+                slidesPerView: 3,
+            },
+            768: {
+                slidesPerView: 6,
+            },
+            1024: {
+                slidesPerView: 7.5,
+                spaceBetween: 10,
+            
+            }
+        },
+    });
+});
+</script>
+{% schema %}
+  {
+    "name": "marquee_section",
+    "settings": [
+      {
+        "type":"range",
+        "label":"Padding Top",
+        "id":"padding_top",
+        "min": 0,
+        "max":500,
+        "step":5,
+        "default":0,
+        "unit": "px"
+      },
+      {
+        "type":"range",
+        "label":"Padding Bottom",
+        "id":"padding_bottom",
+        "min": 0,
+        "max":500,
+        "step":5,
+        "default":0,
+        "unit": "px"
+      }
+    ],
+    "blocks":[
+      {
+      "type":"image",
+      "name":"image",
+      "settings":[{
+        "type": "image_picker",
+        "label":"Add Image",
+        "id":"image_m"
+      }]
+    }
+    ],
+    "presets": [{
+      "name":"marquee-section",
+    
+    }]
+  }
+{% endschema %}

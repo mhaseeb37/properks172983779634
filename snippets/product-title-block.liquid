@@ -1,0 +1,34 @@
+<div class='product-general-info-block title_block' {{ block.shopify_attributes }}>
+  {%- if sectionId contains 'MainSection' -%}
+    <h1 class='{{ block.settings.heading_size }}'>
+      {%- if product != blank -%}
+        {{ product.title }}
+      {%- else -%}
+        {{ 'product.store_front.default_title' | t }}
+      {%- endif -%}
+    </h1>
+  {%- else -%}
+    <a
+      class='unstyled-link'
+      {% if product.url != blank %}
+        href='{{ product.url }}'
+      {% endif %}
+    >
+      <h3 class='{{ block.settings.heading_size }}'>
+        {%- if product != blank -%}
+          {{ product.title }}
+        {%- else -%}
+          {{ 'product.store_front.default_title' | t }}
+        {%- endif -%}
+      </h3>
+    </a>
+  {%- endif -%}
+</div>
+<style>
+  .product-general-info-block.title_block{
+    margin-top:0px;
+  }
+  .product-general-info-block.title_block .h5{
+    margin-top:13px;
+  }
+</style>

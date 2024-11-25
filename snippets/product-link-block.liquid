@@ -1,0 +1,38 @@
+{%- if product != blank -%}
+  <style>
+  .chevronblue{
+    height:1.2rem;
+    width:1.2rem;
+    position:relative;
+    left:0px;
+    transition:all 0.3s ease;
+    
+  }
+    .chevronblue path{
+      fill:#0F52FF;
+    }
+    .link__text.detailsfull{
+      display:flex;
+      align-items:center;
+      gap:5px;
+    }
+    .detailsfull:hover .chevronblue{
+      position:relative;
+      left:2px;
+    }
+    .link__text.detailsfull{
+      overflow:auto;
+    }
+  </style>
+  <a
+    class='link '
+    href='{{ product.url }}'
+    aria-label='{{ 'product.screen_reader.view_full_details' | t }}'
+    {{ block.shopify_attributes }}
+  >
+    <span class="link-parent-for-hover">
+      <span class='link__text detailsfull'>{{ 'product.store_front.view_full_details' | t }}  {%- render 'icon', icon_name: 'chevron', class: 'link__chevron chevronblue' -%}</span>
+    </span>
+   
+  </a>
+{%- endif -%}
